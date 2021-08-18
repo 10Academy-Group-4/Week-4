@@ -50,10 +50,9 @@ def make_prediction():
                 dropout_rate=0.2,
                 number_of_layers=2,
                 output_dim=29)
-
-    data,sample_rate=librosa.load('./uploads/audio/a.wav')
+    file_name = os.listdir("./uploads/audio")[0]
+    data,sample_rate=librosa.load(f'./uploads/audio/{file_name}')
     mfccs = librosa.feature.mfcc(data, sr=16000,n_mfcc=26)
- 
     # def make_predictions(model,features):
     predictions=[]
     deep_speech.load_weights(MODEL_PATH)
@@ -73,24 +72,14 @@ def make_prediction():
 def upload():
     global class_names
     if request.method == 'POST':
-       
         # Get the file from post request
-        
         f = request.files['audio']
         # Save the file to ./uploads
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
             basepath, 'uploads/audio', secure_filename(f.filename))
-        print('The File Name: ', os.listdir(f.filename))
         f.save(file_path)
-        print('Saved: ')
-
-        print(os.listdir("uploads/audio"))
-        new_file = os.path.join(os.path.join(os.path.join(
-            basepath, 'uploads/audio')), "a.wav")
-       
-        os.rename(file_path, new_file)
-        # print(f)
+        
 
         #Make Prediction
         preds = make_prediction()
