@@ -81,6 +81,7 @@ def upload():
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
             basepath, 'uploads/audio', secure_filename(f.filename))
+        print('The File Name: ', os.listdir("path"))
         f.save(file_path)
         print(os.listdir("uploads/audio"))
         new_file = os.path.join(os.path.join(os.path.join(
