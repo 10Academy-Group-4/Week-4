@@ -72,6 +72,8 @@ def make_prediction():
 def upload():
     global class_names
     if request.method == 'POST':
+        shutil.rmtree('./uploads/audio')
+        os.mkdir('./uploads/audio')
         # Get the file from post request
         f = request.files['audio']
         # Save the file to ./uploads
@@ -83,8 +85,6 @@ def upload():
 
         #Make Prediction
         preds = make_prediction()
-        shutil.rmtree('./uploads/audio')
-        os.mkdir('./uploads/audio')
 
 
         return preds[0]
