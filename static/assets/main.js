@@ -47,7 +47,7 @@ $(document).ready(function () {
         contentType: false,
         cache: false,
         processData: false,
-        async: true,
+        async: false,
         success: function (data) {
           // Get and display the result
           $(".loader").hide();
